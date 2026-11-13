@@ -39,4 +39,7 @@ class Observation {
       isVerified: true,
     );
   }
+    @override
+  String toString() =>
+      'Observation(#$id, $title, ${category.name}, verified: $isVerified)';
 }
