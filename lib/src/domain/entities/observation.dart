@@ -25,4 +25,18 @@ class Observation {
       throw ArgumentError('Нотатки довші за $maxNotesLength символів');
     }
   }
+    /// Бізнес-правило: спостереження можна підтвердити лише один раз.
+  Observation verify() {
+    if (isVerified) {
+      throw StateError('Спостереження вже підтверджено');
+    }
+    return Observation(
+      id: id,
+      title: title,
+      notes: notes,
+      category: category,
+      observedAt: observedAt,
+      isVerified: true,
+    );
+  }
 }
