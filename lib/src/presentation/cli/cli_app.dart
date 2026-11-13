@@ -76,17 +76,20 @@ class CliApp {
   }
 
   Future<void> _list() async {
-    final items = await listObservations.execute();
-    if (items.isEmpty) {
-      final date = o.observedAt.toIso8601String().substring(0, 10);
-      print('$mark #${o.id} $date ${o.title} (${o.category.name}) - ${o.notes}');
-      return;
-    }
-    for (final o in items) {
-      final mark = o.isVerified ? '[+]' : '[ ]';
-      print('$mark #${o.id} ${o.title} (${o.category.name}) - ${o.notes}');
-    }
+  final items = await listObservations.execute();
+
+  if (items.isEmpty) {
+    print('Немає спостережень.');
+    return;
   }
+
+  for (final o in items) {
+    final date = o.observedAt.toIso8601String().substring(0, 10);
+    final mark = o.isVerified ? '[+]' : '[ ]';
+
+    print('$mark #${o.id} $date ${o.title} (${o.category.name}) - ${o.notes}');
+  }
+}
 
   Future<void> _verify() async {
     stdout.write('id спостереження: ');
