@@ -8,7 +8,10 @@ class ListObservationsUseCase {
 
   Future<List<Observation>> execute({ObservationCategory? category}) async {
     final all = await _repository.getAll();
-    if (category == null) return all;
-    return all.where((o) => o.category == category).toList();
+    final filtered = category == null
+        ? all
+        : all.where((o) => o.category == category).toList();
+    filtered.sort((a, b) => b.observedAt.compareTo(a.observedAt));
+    return filtered;
   }
 }

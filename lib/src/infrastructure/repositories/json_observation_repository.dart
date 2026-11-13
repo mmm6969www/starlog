@@ -36,6 +36,7 @@ class JsonObservationRepository implements IObservationRepository {
       all.add(observation);
     }
     const encoder = JsonEncoder.withIndent('  ');
+    await _file.parent.create(recursive: true);
     await _file.writeAsString(encoder.convert(all.map(_toJson).toList()));
   }
 
