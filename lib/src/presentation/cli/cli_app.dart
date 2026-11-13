@@ -78,7 +78,8 @@ class CliApp {
   Future<void> _list() async {
     final items = await listObservations.execute();
     if (items.isEmpty) {
-      print('Журнал порожній');
+      final date = o.observedAt.toIso8601String().substring(0, 10);
+      print('$mark #${o.id} $date ${o.title} (${o.category.name}) - ${o.notes}');
       return;
     }
     for (final o in items) {
